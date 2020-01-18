@@ -22,6 +22,9 @@ class Room:
     Connect two rooms in the given n/s/e/w direction
     '''
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> update room names and descriptions
     directions_dict = {
       "n": "North",
       "w": "West",
@@ -29,12 +32,16 @@ class Room:
       "e": "East"
     }
     
+<<<<<<< HEAD
 =======
 >>>>>>> add jango island generator
+=======
+>>>>>>> update room names and descriptions
     reverse_dirs = {"n": "s", "s": "n", "e": "w", "w": "e"}
     reverse_dir = reverse_dirs[direction]
     
     setattr(self, f"{direction}_to", connecting_room)
+<<<<<<< HEAD
 <<<<<<< HEAD
     self.description = f"{self.description}\n- to your {directions_dict[direction]}: {connecting_room.name}"
 
@@ -43,12 +50,18 @@ class Room:
 
 =======
     self.description = f"{self.description}\nTo your {direction}: {connecting_room.name}"
+=======
+    self.description = f"{self.description}\n- to your {directions_dict[direction]}: {connecting_room.name}"
+>>>>>>> update room names and descriptions
 
     setattr(connecting_room, f"{reverse_dir}_to", self)
-    connecting_room.description = f"{connecting_room.description}\nTo your {reverse_dir}: {self.name}"
+    connecting_room.description = f"{connecting_room.description}\n- to your {directions_dict[reverse_dir]}: {self.name}"
 
+<<<<<<< HEAD
     print(self.name)
 >>>>>>> add jango island generator
+=======
+>>>>>>> update room names and descriptions
     print(self.description)
 
 class World:
@@ -103,10 +116,14 @@ class World:
     initial_x = self.width // 2
     initial_y = 0
 <<<<<<< HEAD
+<<<<<<< HEAD
     initialRoom = Room(room_number, f"Island #{room_number}", f"You are on Island #{room_number}.", initial_x, initial_y)
 =======
     initialRoom = Room(room_number, f"Room #{room_number}", "Automatically gerated room", initial_x, initial_y)
 >>>>>>> add jango island generator
+=======
+    initialRoom = Room(room_number, f"Island #{room_number}", f"You are on Island #{room_number}.", initial_x, initial_y)
+>>>>>>> update room names and descriptions
     self.grid[initial_y][initial_x] = initialRoom
     
     # Start building and connecting more rooms
@@ -132,10 +149,14 @@ class World:
       # - create a random room from the set
       coord = coords.pop()
 <<<<<<< HEAD
+<<<<<<< HEAD
       new_room = Room(room_number, f"Island #{room_number}", f"You are on Island #{room_number}", coord[0], coord[1])
 =======
       new_room = Room(room_number, f"Room #{room_number}", "Automatically gerated room", coord[0], coord[1])
 >>>>>>> add jango island generator
+=======
+      new_room = Room(room_number, f"Island #{room_number}", f"You are on Island #{room_number}", coord[0], coord[1])
+>>>>>>> update room names and descriptions
 
       # - randomly connect the new room to existing path
       self.connect_room_to_path(new_room)
