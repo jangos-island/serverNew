@@ -38,6 +38,7 @@ class Room(models.Model):
             if direction == "n":
                 self.n_to = destinationRoomID
 <<<<<<< HEAD
+<<<<<<< HEAD
                 destinationRoom.s_to = self.id
             elif direction == "s":
                 self.s_to = destinationRoomID
@@ -50,16 +51,23 @@ class Room(models.Model):
                 destinationRoom.e_to = self.id
 =======
                 self.s_to = self.id
+=======
+                destinationRoom.s_to = self.id
+>>>>>>> fix Room model
             elif direction == "s":
                 self.s_to = destinationRoomID
-                self.n_to = self.id
+                destinationRoom.n_to = self.id
             elif direction == "e":
                 self.e_to = destinationRoomID
-                self.w_to = self.id
+                destinationRoom.w_to = self.id
             elif direction == "w":
                 self.w_to = destinationRoomID
+<<<<<<< HEAD
                 self.e_to = self.id
 >>>>>>> update room model method to connect rooms
+=======
+                destinationRoom.e_to = self.id
+>>>>>>> fix Room model
             else:
                 print("Invalid direction")
                 return
