@@ -12,30 +12,53 @@ class Room(models.Model):
     s_to = models.IntegerField(default=0)
     e_to = models.IntegerField(default=0)
     w_to = models.IntegerField(default=0)
+    x = models.IntegerField(default=0)
+    y = models.IntegerField(default=0)
+
     def connectRooms(self, destinationRoom, direction):
+        directions_dict = {
+            "n": "North",
+            "w": "West",
+            "s": "South",
+            "e": "East"
+        }
+
+        reverse_dirs = {"n": "s", "s": "n", "e": "w", "w": "e"}
+        reverse_dir = reverse_dirs[direction]
+        
         destinationRoomID = destinationRoom.id
         try:
-            destinationRoom = Room.objects.get(id=destinationRoomID)
+            Room.objects.get(id=destinationRoomID)
         except Room.DoesNotExist:
             print("That room does not exist")
         else:
+            self.description = f"{self.description}\n - to your {directions_dict[direction]}: {destinationRoom.title}"
+            destinationRoom.description = f"{destinationRoom.description}\n - to your {directions_dict[reverse_dir]}: {self.title}"
+         
             if direction == "n":
                 self.n_to = destinationRoomID
+                destinationRoom.s_to = self.id
             elif direction == "s":
                 self.s_to = destinationRoomID
+                destinationRoom.n_to = self.id
             elif direction == "e":
                 self.e_to = destinationRoomID
+                destinationRoom.w_to = self.id
             elif direction == "w":
                 self.w_to = destinationRoomID
+                destinationRoom.e_to = self.id
             else:
                 print("Invalid direction")
                 return
+
             self.save()
+            destinationRoom.save()
+
     def playerNames(self, currentPlayerID):
         return [p.user.username for p in Player.objects.filter(currentRoom=self.id) if p.id != int(currentPlayerID)]
+
     def playerUUIDs(self, currentPlayerID):
         return [p.uuid for p in Player.objects.filter(currentRoom=self.id) if p.id != int(currentPlayerID)]
-
 
 class Player(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
