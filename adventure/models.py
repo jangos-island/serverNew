@@ -37,16 +37,16 @@ class Room(models.Model):
          
             if direction == "n":
                 self.n_to = destinationRoomID
-                self.s_to = self.id
+                destinationRoom.s_to = self.id
             elif direction == "s":
                 self.s_to = destinationRoomID
-                self.n_to = self.id
+                destinationRoom.n_to = self.id
             elif direction == "e":
                 self.e_to = destinationRoomID
-                self.w_to = self.id
+                destinationRoom.w_to = self.id
             elif direction == "w":
                 self.w_to = destinationRoomID
-                self.e_to = self.id
+                destinationRoom.e_to = self.id
             else:
                 print("Invalid direction")
                 return
