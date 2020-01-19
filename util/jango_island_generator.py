@@ -200,6 +200,6 @@ class World:
     print(str)
 
 w = World()
-w.generate_rooms(10, 10, 20, 2)
+w.generate_rooms(10, 10, 80, 10)
 
 w.print_rooms()
