@@ -242,9 +242,13 @@ class World:
 
 w = World()
 <<<<<<< HEAD
+<<<<<<< HEAD
 w.generate_rooms(10, 10, 80, 10)
 =======
 w.generate_rooms(10, 10, 20, 2)
 >>>>>>> add jango island generator
+=======
+w.generate_rooms(10, 10, 80, 10)
+>>>>>>> generator test
 
 w.print_rooms()
