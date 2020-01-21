@@ -66,7 +66,6 @@ def move(request):
 @csrf_exempt
 @api_view(["POST"])
 def say(request):
-    # IMPLEMENT
     body = json.loads(request.body)
     pusher.trigger(body['room'], 'say', {
                    'message': body['message'], 'player': request.user.username})
