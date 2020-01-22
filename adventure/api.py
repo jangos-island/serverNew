@@ -53,10 +53,10 @@ def move(request):
         currentPlayerUUIDs = room.playerUUIDs(player_id)
         nextPlayerUUIDs = nextRoom.playerUUIDs(player_id)
         for p_uuid in currentPlayerUUIDs:
-            pusher.trigger(f'p-channel-{p_uuid}', u'broadcast', {
+            pusher.trigger(f'p-channel-{p_uuid}', 'broadcast', {
                            'message': f'{player.user.username} has walked {dirs[direction]}.'})
         for p_uuid in nextPlayerUUIDs:
-            pusher.trigger(f'p-channel-{p_uuid}', u'broadcast', {
+            pusher.trigger(f'p-channel-{p_uuid}', 'broadcast', {
                            'message': f'{player.user.username} has entered from the {reverse_dirs[direction]}.'})
         return JsonResponse({'name':player.user.username, 'coord': {'x': nextRoom.x, 'y': nextRoom.y}, 'title':nextRoom.title, 'description':nextRoom.description, 'players':players, 'error_msg':""}, safe=True)
     else:
@@ -66,10 +66,16 @@ def move(request):
 @csrf_exempt
 @api_view(["POST"])
 def say(request):
-    body = json.loads(request.body)
-    pusher.trigger(body['room'], 'say', {
-                   'message': body['message'], 'player': request.user.username})
-    return JsonResponse({'success': "Message broadcasted"}, safe=True, status=200)
+    data = json.loads(request.body)
+    message = data['message']
+    player = request.user.player
+    player_id = player.id
+    room = player.room()
+    if message:
+        players_uuids = room.playerUUIDs(player_id)
+        for uuid in players_uuids:
+            pusher.trigger(f'p-channel-{uuid}', 'broadcast', {'message': f'{player.user.username}: {message}'})
+        return JsonResponse({'message': f'{player.user.username}: {message}.'}, safe=True)
 
 @csrf_exempt
 @api_view(["GET"])
