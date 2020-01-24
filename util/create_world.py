@@ -4,10 +4,10 @@ import random
 
 Room.objects.all().delete()
 
-size_x = 25
-size_y = 10
-room_count = 100
-loop_count = 8
+size_x = 35
+size_y = 20
+room_count = 500
+loop_count = 100
 
 # Initialize the grid
 grid = [None] * size_y
